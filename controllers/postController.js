@@ -1,3 +1,21 @@
+const { getAllPosts, createPost } = require("../services/postServices.js");
+
+const postController = require("express").Router();
+
+postController.get("/", async (req, res) => {
+  const posts = await getAllPosts();
+  res.json(posts);
+});
+
+postController.post("/", async (req, res) => {
+  const { content, imageUrl, ownerUsername, ownerId } = req.body;
+  const newPost = await createPost(content, imageUrl, ownerUsername, ownerId);
+
+  res.json(newPost);
+});
+
+module.exports = postController;
+
 // const {
 //   create,
 //   getAllItems,

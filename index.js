@@ -1,10 +1,10 @@
 const runDB = require("./config/database.js");
 const app = require("./config/express.js");
 const authController = require("./controllers/authController.js");
-const dataController = require("./controllers/dataController.js");
+const postController = require("./controllers/postController.js");
 
 app.use("/users", authController);
-// app.use("/data", dataController);
+ app.use("/posts", postController);
 
 start();
 async function start() {
