@@ -2,7 +2,11 @@ const {
   createComment,
   getCommentByPostId,
 } = require("../services/commentService.js");
-const { getAllPosts, createPost } = require("../services/postServices.js");
+const {
+  getAllPosts,
+  createPost,
+  getPostsById,
+} = require("../services/postServices.js");
 
 const postController = require("express").Router();
 
@@ -28,6 +32,10 @@ postController.post("/comments", async (req, res) => {
 postController.get("/comments/:id", async (req, res) => {
   const comments = await getCommentByPostId(req.params.id);
   res.json(comments);
+});
+postController.get("/user/:id", async (req, res) => {
+  const posts = await getPostsById(req.params.id);
+  res.json(posts);
 });
 
 module.exports = postController;

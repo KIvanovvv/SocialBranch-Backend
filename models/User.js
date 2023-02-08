@@ -5,6 +5,7 @@ const userSchema = new Schema({
   hashedPassword: { type: String, required: true },
   username: { type: String, required: true },
   imageUrl: { type: String, required: true },
+  description: { type: String, default: "" },
 });
 
 userSchema.index(

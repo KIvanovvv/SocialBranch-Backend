@@ -1,4 +1,9 @@
-const { register, login } = require("../services/authServices.js");
+const {
+  register,
+  login,
+  findUserById,
+} = require("../services/authServices.js");
+const bcrypt = require("bcrypt");
 
 const authController = require("express").Router();
 
@@ -24,6 +29,38 @@ authController.post("/login", async (req, res) => {
 });
 authController.get("/logout", async (req, res) => {
   res.status(204).end();
+});
+
+authController.post("/change", async (req, res) => {
+  const { _id, username } = req.body;
+  const user = await findUserById(_id);
+  user.username = username;
+  await user.save();
+  res.json(user);
+});
+
+authController.post("/change/password", async (req, res) => {
+  const { _id, password } = req.body;
+  const user = await findUserById(_id);
+  user.hashedPassword = await bcrypt.hash(password, 10);
+  await user.save();
+  res.json(user);
+});
+
+authController.post("/change/image", async (req, res) => {
+  const { _id, imageUrl } = req.body;
+  const user = await findUserById(_id);
+  user.imageUrl = imageUrl;
+  await user.save();
+  res.json(user);
+});
+
+authController.post("/change/description", async (req, res) => {
+  const { _id, description } = req.body;
+  const user = await findUserById(_id);
+  user.description = description;
+  await user.save();
+  res.json(user);
 });
 
 module.exports = authController;
