@@ -19,13 +19,18 @@ async function createPost(content, imageUrl, ownerUsername, ownerId) {
   }
 }
 
-async function getPostsById(id) {
+async function getPostsByOwnerId(id) {
   const posts = await Post.find({ ownerId: id });
+  return posts;
+}
+async function getPostsById(id) {
+  const posts = await Post.findOne({ _id: id });
   return posts;
 }
 
 module.exports = {
   getAllPosts,
   createPost,
+  getPostsByOwnerId,
   getPostsById,
 };
