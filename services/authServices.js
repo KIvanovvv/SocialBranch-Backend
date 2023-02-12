@@ -2,8 +2,6 @@ const User = require("../models/User.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const secretStr = "asdawdaafwaea2321ad";
-
 async function register(email, password, username, imageUrl) {
   try {
     const existing = await User.findOne({ email: email }).collation({
@@ -66,7 +64,7 @@ function createToken(userData) {
     imageUrl: userData.imageUrl,
     description: userData.description,
     moods: userData.moods,
-    accessToken: jwt.sign(payload, secretStr),
+    accessToken: jwt.sign(payload, process.env.JWT_SECRET),
   };
 }
 
