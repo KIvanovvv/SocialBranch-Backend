@@ -1,6 +1,7 @@
 const User = require("../models/User.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const secretStr = "asdawdaafwaea2321ad";
 
 async function register(email, password, username, imageUrl) {
   try {
@@ -64,7 +65,7 @@ function createToken(userData) {
     imageUrl: userData.imageUrl,
     description: userData.description,
     moods: userData.moods,
-    accessToken: jwt.sign(payload, process.env.JWT_SECRET),
+    accessToken: jwt.sign(payload, secretStr),
   };
 }
 
