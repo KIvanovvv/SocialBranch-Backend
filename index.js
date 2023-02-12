@@ -7,6 +7,10 @@ const postController = require("./controllers/postController.js");
 
 const PORT = process.env.PORT || 3030;
 
+app.get("/", (req, res) => {
+  res.send(`Server is running...`);
+});
+
 app.use("/users", authController);
 app.use("/posts", postController);
 
