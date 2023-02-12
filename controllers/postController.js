@@ -7,6 +7,7 @@ const {
   createPost,
   getPostsById,
   getPostsByOwnerId,
+  getPostsByQuery,
 } = require("../services/postServices.js");
 
 const postController = require("express").Router();
@@ -41,11 +42,22 @@ postController.get("/user/:id", async (req, res) => {
 
 postController.post("/update", async (req, res) => {
   const { _id, content } = req.body;
-
   const post = await getPostsById(_id);
   post.content = content;
   await post.save();
   res.json(post);
+});
+
+postController.delete("/delete", async (req, res) => {
+  const post = await getPostsById(req.body._id);
+  await post.delete();
+  res.json([]);
+});
+
+postController.post("/search", async (req, res) => {
+  const { query } = req.body;
+  const posts = await getPostsByQuery(query);
+  res.json(posts);
 });
 
 module.exports = postController;

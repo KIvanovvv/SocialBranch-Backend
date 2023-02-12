@@ -4,8 +4,9 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   hashedPassword: { type: String, required: true },
   username: { type: String, required: true },
-  imageUrl: { type: String, required: true },
+  imageUrl: { type: String },
   description: { type: String, default: "" },
+  moods: { type: Object, default: { happy: "", sad: "", angry: "" } },
 });
 
 userSchema.index(

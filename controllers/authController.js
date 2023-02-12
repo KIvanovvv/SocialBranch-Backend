@@ -2,6 +2,7 @@ const {
   register,
   login,
   findUserById,
+  createToken,
 } = require("../services/authServices.js");
 const bcrypt = require("bcrypt");
 
@@ -9,12 +10,16 @@ const authController = require("express").Router();
 
 authController.post("/register", async (req, res) => {
   try {
-    const { email, password, username, imageUrl } = req.body;
+    const { email, password, username } = req.body;
+    let { imageUrl } = req.body;
+    if (!imageUrl) {
+      imageUrl = "";
+    }
     const token = await register(email, password, username, imageUrl);
 
     res.json(token);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(403).json(error.message);
   }
 });
 
@@ -36,7 +41,8 @@ authController.post("/change", async (req, res) => {
   const user = await findUserById(_id);
   user.username = username;
   await user.save();
-  res.json(user);
+  const token = createToken(user);
+  res.json(token);
 });
 
 authController.post("/change/password", async (req, res) => {
@@ -44,7 +50,8 @@ authController.post("/change/password", async (req, res) => {
   const user = await findUserById(_id);
   user.hashedPassword = await bcrypt.hash(password, 10);
   await user.save();
-  res.json(user);
+  const token = createToken(user);
+  res.json(token);
 });
 
 authController.post("/change/image", async (req, res) => {
@@ -59,6 +66,30 @@ authController.post("/change/description", async (req, res) => {
   const { _id, description } = req.body;
   const user = await findUserById(_id);
   user.description = description;
+  await user.save();
+  res.json(user);
+});
+authController.post("/moods/happy", async (req, res) => {
+  const { _id, imageUrl } = req.body;
+  const user = await findUserById(_id);
+  user.moods.happy = imageUrl;
+  user.markModified("moods");
+  await user.save();
+  res.json(user);
+});
+authController.post("/moods/sad", async (req, res) => {
+  const { _id, imageUrl } = req.body;
+  const user = await findUserById(_id);
+  user.moods.sad = imageUrl;
+  user.markModified("moods");
+  await user.save();
+  res.json(user);
+});
+authController.post("/moods/angry", async (req, res) => {
+  const { _id, imageUrl } = req.body;
+  const user = await findUserById(_id);
+  user.moods.angry = imageUrl;
+  user.markModified("moods");
   await user.save();
   res.json(user);
 });

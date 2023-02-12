@@ -28,9 +28,15 @@ async function getPostsById(id) {
   return posts;
 }
 
+async function getPostsByQuery(query) {
+  const posts = await Post.find({ ownerUsername: {$regex:query,$options:"i"} });
+  return posts;
+}
+
 module.exports = {
   getAllPosts,
   createPost,
   getPostsByOwnerId,
   getPostsById,
+  getPostsByQuery,
 };

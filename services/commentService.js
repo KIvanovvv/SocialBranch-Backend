@@ -7,6 +7,7 @@ async function createComment(content, username, postId,imageUrl) {
     postId,
     imageUrl
   });
+  return newComment
 }
 
 async function getCommentByPostId(postId) {

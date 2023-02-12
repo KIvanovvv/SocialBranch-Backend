@@ -19,6 +19,7 @@ async function register(email, password, username, imageUrl) {
       username,
       imageUrl,
       description: "",
+      moods: { happy: "", sad: "", angry: "" },
     });
     return createToken(newUser);
   } catch (error) {
@@ -55,13 +56,16 @@ function createToken(userData) {
     username: userData.username,
     imageUrl: userData.imageUrl,
     description: userData.description,
+    moods: userData.moods,
   };
+
   return {
     _id: userData._id,
     email: userData.email,
     username: userData.username,
     imageUrl: userData.imageUrl,
     description: userData.description,
+    moods: userData.moods,
     accessToken: jwt.sign(payload, secretStr),
   };
 }
@@ -70,4 +74,5 @@ module.exports = {
   register,
   login,
   findUserById,
+  createToken,
 };
