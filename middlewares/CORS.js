@@ -1,5 +1,8 @@
 module.exports = () => (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://kivanovvv.github.io");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://kivanovvv.github.io/Social-Branch---React-Project/"
+  );
 
   res.setHeader(
     "Access-Control-Allow-Methods",
