@@ -53,9 +53,9 @@ function createToken(userData) {
     email: userData.email,
     _id: userData._id,
     username: userData.username,
-    imageUrl: userData.imageUrl,
+    // imageUrl: userData.imageUrl,
     description: userData.description,
-    moods: userData.moods,
+    // moods: userData.moods,
   };
 
   return {
