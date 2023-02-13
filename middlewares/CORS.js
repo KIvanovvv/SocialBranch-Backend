@@ -6,7 +6,7 @@ module.exports = () => (req, res, next) => {
     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
   );
 
-  res.setHeader("*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
 
   next();
 };
