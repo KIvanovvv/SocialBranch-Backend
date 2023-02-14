@@ -21,7 +21,6 @@ postController.get("/", async (req, res) => {
 postController.post("/", async (req, res) => {
   const { content, imageUrl, ownerUsername, ownerId } = req.body;
   const newPost = await createPost(content, imageUrl, ownerUsername, ownerId);
-  console.log(req.body);
   res.status(201).json(newPost);
 });
 
