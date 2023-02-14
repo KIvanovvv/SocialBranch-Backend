@@ -21,14 +21,14 @@ postController.get("/", async (req, res) => {
 postController.post("/", async (req, res) => {
   const { content, imageUrl, ownerUsername, ownerId } = req.body;
   const newPost = await createPost(content, imageUrl, ownerUsername, ownerId);
-  console.log(req.headers["x-authorization"]);
+  console.log(req.body);
   res.status(201).json(newPost);
 });
 
 postController.post("/comments", async (req, res) => {
   const { content, username, postId, imageUrl } = req.body;
   const comment = await createComment(content, username, postId, imageUrl);
-  res.json(comment);
+  res.status(201).json(comment);
 });
 
 postController.get("/comments/:id", async (req, res) => {
