@@ -94,4 +94,13 @@ authController.post("/moods/angry", async (req, res) => {
   res.json(user);
 });
 
+authController.get("/find/:id", async (req, res) => {
+  try{
+  const user = await findUserById(req.params.id);
+  res.status(200).json(user);
+}catch(err){
+  res.status(400).json({error:err.message})
+}
+});
+
 module.exports = authController;
