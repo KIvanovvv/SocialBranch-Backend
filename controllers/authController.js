@@ -95,12 +95,30 @@ authController.post("/moods/angry", async (req, res) => {
 });
 
 authController.get("/find/:id", async (req, res) => {
-  try{
-  const user = await findUserById(req.params.id);
-  res.status(200).json(user);
-}catch(err){
-  res.status(400).json({error:err.message})
-}
+  try {
+    const user = await findUserById(req.params.id);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+authController.post("/messages", async (req, res) => {
+  try {
+    const { _id, message, senderData } = req.body;
+    const user = await findUserById(_id);
+    user.push({
+      message,
+      ownerId: senderData._id,
+      ownerUsername: senderData.username,
+      ownerImg: senderData.imageUrl,
+      isViewed: false,
+    });
+    await user.save();
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 module.exports = authController;

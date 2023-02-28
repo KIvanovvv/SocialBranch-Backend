@@ -54,7 +54,6 @@ function createToken(userData) {
     _id: userData._id,
     username: userData.username,
     description: userData.description,
-  
   };
 
   return {
