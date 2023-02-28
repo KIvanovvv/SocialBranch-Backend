@@ -107,7 +107,7 @@ authController.post("/messages", async (req, res) => {
   try {
     const { _id, message, senderData } = req.body;
     const user = await findUserById(_id);
-    user.push({
+    user.messages.push({
       message,
       ownerId: senderData._id,
       ownerUsername: senderData.username,
