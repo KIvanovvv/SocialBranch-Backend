@@ -63,6 +63,7 @@ function createToken(userData) {
     imageUrl: userData.imageUrl,
     description: userData.description,
     moods: userData.moods,
+    messages: userData.messages,
     accessToken: jwt.sign(payload, secretStr),
   };
 }
