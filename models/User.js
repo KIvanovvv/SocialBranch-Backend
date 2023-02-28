@@ -7,6 +7,7 @@ const userSchema = new Schema({
   imageUrl: { type: String },
   description: { type: String, default: "" },
   moods: { type: Object, default: { happy: "", sad: "", angry: "" } },
+  messages: { type: Array, default: [] },
 });
 
 userSchema.index(
