@@ -12,7 +12,7 @@ messsageController.post("/", async (req, res) => {
     senderImage,
     senderUsername
   );
-  return newMessage;
+  res.status(200).json(newMessage);
 });
 
 module.exports = messsageController;
