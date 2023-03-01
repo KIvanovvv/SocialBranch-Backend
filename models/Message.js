@@ -6,6 +6,7 @@ const newMessage = new Schema({
   senderUsername: { type: String, required: true },
   senderImage: { type: String, required: true },
   senderId: { type: Types.ObjectId, required: true },
+  isViewed :{type: Boolean,default:false}
 });
 
 const Message = model("Message", newMessage);
