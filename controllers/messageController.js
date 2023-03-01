@@ -1,4 +1,7 @@
-const { createMessage } = require("../services/messageService.js");
+const {
+  createMessage,
+  getUserMessages,
+} = require("../services/messageService.js");
 
 const messsageController = require("express").Router();
 
@@ -13,6 +16,11 @@ messsageController.post("/", async (req, res) => {
     senderUsername
   );
   res.status(200).json(newMessage);
+});
+
+messsageController.get("/:id", async (req, res) => {
+  const messages = await getUserMessages(req.params.id);
+  res.status(200).json(messages);
 });
 
 module.exports = messsageController;

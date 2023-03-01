@@ -16,7 +16,12 @@ async function createMessage(
   });
   return newMessage;
 }
+async function getUserMessages(userId) {
+  const messages = await Message.find({ reciverId: userId });
+  return messages;
+}
 
 module.exports = {
   createMessage,
+  getUserMessages,
 };
