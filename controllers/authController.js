@@ -122,12 +122,9 @@ authController.post("/messages", async (req, res) => {
   }
 });
 
-authController.get("/search/:query", async (req, res) => {
+authController.post("/search", async (req, res) => {
   try {
-    let query = req.params.query;
-    if (!query) {
-      query = "";
-    }
+    const query = req.body.query;
     const users = await findUserByQuery(query);
     console.log(users);
     res.status(200).json(users);
