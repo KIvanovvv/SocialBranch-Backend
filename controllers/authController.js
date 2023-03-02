@@ -129,6 +129,7 @@ authController.get("/search/:query", async (req, res) => {
       query = "";
     }
     const users = await findUserByQuery(query);
+    console.log(users);
     res.status(200).json(users);
   } catch (err) {
     res.status(400).json({ error: err.message });

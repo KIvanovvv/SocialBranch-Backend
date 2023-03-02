@@ -48,7 +48,7 @@ async function findUserById(id) {
   return user;
 }
 async function findUserByQuery(query) {
-  const user = await User.find({ username: {$regex:query,$options:"i"} });
+  const user = await User.find({ username: { $regex: query, $options: "i" } });
   return user;
 }
 
@@ -77,5 +77,5 @@ module.exports = {
   login,
   findUserById,
   createToken,
-  findUserByQuery
+  findUserByQuery,
 };
