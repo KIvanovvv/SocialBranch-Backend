@@ -124,6 +124,7 @@ authController.post("/messages", async (req, res) => {
 
 authController.get("/search/:query", async (req, res) => {
   try {
+    console.log(req.params.query);
     const users = await findUserByQuery(req.params.query);
     res.status(200).json(users);
   } catch (err) {
