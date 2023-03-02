@@ -47,6 +47,10 @@ async function findUserById(id) {
   const user = await User.findOne({ _id: id });
   return user;
 }
+async function findUserByQuery(query) {
+  const user = await User.find({ username: {$regex:query,$options:"i"} });
+  return user;
+}
 
 function createToken(userData) {
   const payload = {
@@ -73,4 +77,5 @@ module.exports = {
   login,
   findUserById,
   createToken,
+  findUserByQuery
 };

@@ -3,6 +3,7 @@ const {
   login,
   findUserById,
   createToken,
+  findUserByQuery,
 } = require("../services/authServices.js");
 const bcrypt = require("bcrypt");
 
@@ -116,6 +117,15 @@ authController.post("/messages", async (req, res) => {
     });
     await user.save();
     res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+authController.get("/search/:query", async (req, res) => {
+  try {
+    const users = await findUserByQuery(req.params.query);
+    res.status(200).json(users);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
