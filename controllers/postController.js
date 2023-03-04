@@ -19,7 +19,7 @@ postController.get("/", async (req, res) => {
   res.json(posts);
 });
 
-postController.post("/", async (req, res) => {
+postController.post("/", hasUser(), async (req, res) => {
   const { content, imageUrl, ownerUsername, ownerId } = req.body;
   const newPost = await createPost(content, imageUrl, ownerUsername, ownerId);
   res.status(201).json(newPost);
