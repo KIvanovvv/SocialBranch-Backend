@@ -8,9 +8,8 @@ module.exports = () => (req, res, next) => {
     secretStr,
     (err, token) => {
       if (err) {
-        res.status(403).json(err.message);
+        res.status(403).json("From middleware");
       }
-      req.user = token;
       next();
     }
   );
