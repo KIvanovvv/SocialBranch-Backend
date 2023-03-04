@@ -9,8 +9,9 @@ module.exports = () => (req, res, next) => {
     (err, token) => {
       if (err) {
         res.status(403).json("From middleware");
+      } else {
+        next();
       }
-      next();
     }
   );
 };
