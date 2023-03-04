@@ -3,9 +3,15 @@ const jwt = require("jsonwebtoken");
 const secretStr = "asdawdaafwaea2321ad";
 
 module.exports = () => (req, res, next) => {
-  if (req.headers["x-authorization"]) {
-    token = jwt.verify(req.headers["x-authorization"], secretStr);
-    req.user = token;
-  }
-  next();
+  token = jwt.verify(
+    req.headers["x-authorization"],
+    secretStr,
+    (err, token) => {
+      if (err) {
+        res.status(403).json(err.message);
+      }
+      req.user = token;
+      next();
+    }
+  );
 };
