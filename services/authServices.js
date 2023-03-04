@@ -56,6 +56,8 @@ function createToken(userData) {
   const payload = {
     email: userData.email,
     _id: userData._id,
+    username: userData.username,
+    description: userData.description,
   };
 
   return {
