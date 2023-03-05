@@ -1,3 +1,4 @@
+const hasUser = require("../middlewares/hasUser.js");
 const {
   createMessage,
   getUserMessages,
@@ -6,7 +7,7 @@ const {
 
 const messsageController = require("express").Router();
 
-messsageController.post("/", async (req, res) => {
+messsageController.post("/", hasUser(), async (req, res) => {
   const { content, reciverId, senderId, senderImage, senderUsername } =
     req.body;
   const newMessage = await createMessage(
@@ -19,12 +20,12 @@ messsageController.post("/", async (req, res) => {
   res.status(200).json(newMessage);
 });
 
-messsageController.get("/:id", async (req, res) => {
+messsageController.get("/:id", hasUser(), async (req, res) => {
   const messages = await getUserMessages(req.params.id);
   res.status(200).json(messages);
 });
 
-messsageController.post("/viewed", async (req, res) => {
+messsageController.post("/viewed", hasUser(), async (req, res) => {
   const { msgId } = req.body;
   const message = await getMessageById(msgId);
   message.isViewed = true;
