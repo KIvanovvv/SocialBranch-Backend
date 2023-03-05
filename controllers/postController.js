@@ -40,7 +40,7 @@ postController.get("/user/:id", async (req, res) => {
   res.json(posts);
 });
 
-postController.post("/update", async (req, res) => {
+postController.post("/update", hasUser(), async (req, res) => {
   const { _id, content } = req.body;
   const post = await getPostsById(_id);
   post.content = content;
@@ -48,7 +48,7 @@ postController.post("/update", async (req, res) => {
   res.json(post);
 });
 
-postController.delete("/delete", async (req, res) => {
+postController.delete("/delete", hasUser(), async (req, res) => {
   const post = await getPostsById(req.body._id);
   await post.delete();
   res.json([]);
