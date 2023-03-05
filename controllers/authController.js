@@ -6,6 +6,7 @@ const {
   findUserByQuery,
 } = require("../services/authServices.js");
 const bcrypt = require("bcrypt");
+const hasUser = require("../middlewares/hasUser.js");
 
 const authController = require("express").Router();
 
@@ -37,7 +38,7 @@ authController.get("/logout", async (req, res) => {
   res.status(204).end();
 });
 
-authController.post("/change", async (req, res) => {
+authController.post("/change", hasUser(), async (req, res) => {
   const { _id, username } = req.body;
   const user = await findUserById(_id);
   user.username = username;
@@ -46,7 +47,7 @@ authController.post("/change", async (req, res) => {
   res.json(token);
 });
 
-authController.post("/change/password", async (req, res) => {
+authController.post("/change/password", hasUser(), async (req, res) => {
   const { _id, password } = req.body;
   const user = await findUserById(_id);
   user.hashedPassword = await bcrypt.hash(password, 10);
@@ -55,7 +56,7 @@ authController.post("/change/password", async (req, res) => {
   res.json(token);
 });
 
-authController.post("/change/image", async (req, res) => {
+authController.post("/change/image", hasUser(), async (req, res) => {
   const { _id, imageUrl } = req.body;
   const user = await findUserById(_id);
   user.imageUrl = imageUrl;
@@ -63,14 +64,14 @@ authController.post("/change/image", async (req, res) => {
   res.json(user);
 });
 
-authController.post("/change/description", async (req, res) => {
+authController.post("/change/description", hasUser(), async (req, res) => {
   const { _id, description } = req.body;
   const user = await findUserById(_id);
   user.description = description;
   await user.save();
   res.json(user);
 });
-authController.post("/moods/happy", async (req, res) => {
+authController.post("/moods/happy", hasUser(), async (req, res) => {
   const { _id, imageUrl } = req.body;
   const user = await findUserById(_id);
   user.moods.happy = imageUrl;
@@ -78,7 +79,7 @@ authController.post("/moods/happy", async (req, res) => {
   await user.save();
   res.json(user);
 });
-authController.post("/moods/sad", async (req, res) => {
+authController.post("/moods/sad", hasUser(), async (req, res) => {
   const { _id, imageUrl } = req.body;
   const user = await findUserById(_id);
   user.moods.sad = imageUrl;
@@ -86,7 +87,7 @@ authController.post("/moods/sad", async (req, res) => {
   await user.save();
   res.json(user);
 });
-authController.post("/moods/angry", async (req, res) => {
+authController.post("/moods/angry", hasUser(), async (req, res) => {
   const { _id, imageUrl } = req.body;
   const user = await findUserById(_id);
   user.moods.angry = imageUrl;
