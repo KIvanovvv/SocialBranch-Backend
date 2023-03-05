@@ -20,7 +20,7 @@ messsageController.post("/", hasUser(), async (req, res) => {
   res.status(200).json(newMessage);
 });
 
-messsageController.get("/:id", hasUser(), async (req, res) => {
+messsageController.get("/:id", async (req, res) => {
   const messages = await getUserMessages(req.params.id);
   res.status(200).json(messages);
 });
