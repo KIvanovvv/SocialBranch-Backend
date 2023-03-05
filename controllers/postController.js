@@ -25,7 +25,7 @@ postController.post("/", hasUser(), async (req, res) => {
   res.status(201).json(newPost);
 });
 
-postController.post("/comments", async (req, res) => {
+postController.post("/comments", hasUser(), async (req, res) => {
   const { content, username, postId, imageUrl } = req.body;
   const comment = await createComment(content, username, postId, imageUrl);
   res.status(201).json(comment);
